@@ -14,14 +14,33 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotEmpty
-    private String data;
+    private String firstName;
+    @NotEmpty
+    private String lastName;
+    @NotEmpty
+    private String weight;
 
-    public String getData() {
-        return data;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
 }

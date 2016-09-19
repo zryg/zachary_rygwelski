@@ -16,7 +16,7 @@
 <body>
     <div class="row">
         <div class="small-12 medium-8 small-centered columns">
-            <h1>Brian Bliss Workouts</h1>
+            <h1>Create New User</h1>
         </div>
     </div>
 
@@ -24,8 +24,16 @@
         <div class="small-12 medium-8 small-centered columns">
             <form th:object="${insertRecord}" method="POST">
                 <div class="form-group">
-                    <label for="data">Enter Exercise Name:</label>
-                    <input id="data" type="text" class="form-control" placeholder="" th:field="*{data}" />
+                    <label for="firstName">First Name:</label>
+                    <input id="firstName" type="text" placeholder="" th:field="*{firstName}" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input id="lastName" type="text" placeholder="" th:field="*{lastName}" />
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight:</label>
+                    <input id="weight" type="text" placeholder="" th:field="*{weight}" />
                 </div>
                 <button type="submit" class="button">Submit</button>
             </form>
@@ -35,18 +43,17 @@
     <hr />
     <div class="row">
         <div class="small-12 medium-8 small-centered columns">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Exercise Name:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="record : ${records}">
-                        <td th:text="${record.data}">Some text</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>Choose User:</h2>
+            <div id="userAccounts" th:each="record : ${records}">
+                <button type="button" class="expanded button" th:text="${record.firstName}"></button>
+            </div>
+            <!--<table class="table table-striped">-->
+                <!--<tbody>-->
+                    <!--<tr th:each="record : ${records}">-->
+                        <!--<td th:text="${record.data}">Some text</td>-->
+                    <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
         </div>
     </div>
 

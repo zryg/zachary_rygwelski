@@ -66,7 +66,9 @@ public class HomeControllerTest {
             assertTrue(map.get("insertRecord") instanceof Record);
 
             Record insertRecord = (Record) map.get("insertRecord");
-            assertNull(insertRecord.getData());
+            assertNull(insertRecord.getFirstName());
+            assertNull(insertRecord.getLastName());
+            assertNull(insertRecord.getWeight());
         }
 
         @Test

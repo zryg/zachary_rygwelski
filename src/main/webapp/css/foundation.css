@@ -1229,7 +1229,9 @@ h6 {
     line-height: 0; }
 
 h1 {
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+  margin-top:10px;
+  }
 
 h2 {
   font-size: 1.25rem; }
