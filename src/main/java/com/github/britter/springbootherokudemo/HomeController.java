@@ -46,7 +46,7 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String insertData(ModelMap model, 
+    public String insertData(ModelMap model,
                              @ModelAttribute("insertRecord") @Valid Record record,
                              BindingResult result) {
         if (!result.hasErrors()) {
