@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.britter.springbootherokudemo;
+package com.github.britter.springbootherokudemo.controllers;
 
 import javax.validation.Valid;
 import java.util.List;
 
+import com.github.britter.springbootherokudemo.model.Account;
+import com.github.britter.springbootherokudemo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,27 +32,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HomeController {
 
-    private RecordRepository repository;
+    private AccountRepository repository;
 
     @Autowired
-    public HomeController(RecordRepository repository) {
+    public HomeController(AccountRepository repository) {
         this.repository = repository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap model) {
-        List<Record> records = repository.findAll();
-        model.addAttribute("records", records);
-        model.addAttribute("insertRecord", new Record());
+        List<Account> accounts = repository.findAll();
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("insertAccount", new Account());
         return "home";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String insertData(ModelMap model,
-                             @ModelAttribute("insertRecord") @Valid Record record,
+                             @ModelAttribute("insertAccount") @Valid Account account,
                              BindingResult result) {
         if (!result.hasErrors()) {
-            repository.save(record);
+            repository.save(account);
         }
         return home(model);
     }

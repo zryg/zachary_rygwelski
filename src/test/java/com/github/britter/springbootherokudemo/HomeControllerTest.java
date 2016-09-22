@@ -34,6 +34,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import com.github.britter.springbootherokudemo.controllers.HomeController;
+import com.github.britter.springbootherokudemo.model.Account;
+import com.github.britter.springbootherokudemo.repository.AccountRepository;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,12 +50,12 @@ public class HomeControllerTest {
 
     private ModelMap map;
     private HomeController ctrl;
-    private RecordRepository repository;
+    private AccountRepository repository;
 
     @Before
     public void setUp() throws Exception {
         map = new ModelMap();
-        repository = mock(RecordRepository.class);
+        repository = mock(AccountRepository.class);
         ctrl = new HomeController(repository);
     }
 
@@ -62,13 +65,15 @@ public class HomeControllerTest {
         public void shouldAddInsertRecordToModelMap() throws Exception {
             ctrl.home(map);
 
-            assertThat(map, hasKey("insertRecord"));
-            assertTrue(map.get("insertRecord") instanceof Record);
+            assertThat(map, hasKey("insertAccount"));
+            assertTrue(map.get("insertAccount") instanceof Account);
 
-            Record insertRecord = (Record) map.get("insertRecord");
-            assertNull(insertRecord.getFirstName());
-            assertNull(insertRecord.getLastName());
-            assertNull(insertRecord.getWeight());
+            Account insertAccount = (Account) map.get("insertAccount");
+            assertNull(insertAccount.getMaxBench());
+            assertNull(insertAccount.getMaxDeadlift());
+            assertNull(insertAccount.getMaxSquat());
+            assertNull(insertAccount.getName());
+            assertNull(insertAccount.getWorkouts());
         }
 
         @Test
@@ -80,20 +85,20 @@ public class HomeControllerTest {
 
         @Test
         public void shouldAddRecordsFromRepositoryToModelMap() throws Exception {
-            when(repository.findAll()).thenReturn(Arrays.asList(new Record(), new Record(), new Record()));
+            when(repository.findAll()).thenReturn(Arrays.asList(new Account(), new Account(), new Account()));
 
             ctrl.home(map);
 
-            assertThat(map, hasKey("records"));
-            assertTrue(map.get("records") instanceof List);
+            assertThat(map, hasKey("accounts"));
+            assertTrue(map.get("accounts") instanceof List);
 
-            List<Record> records = getRecords();
-            assertThat(records, hasSize(3));
+            List<Account> accounts = getRecords();
+            assertThat(accounts, hasSize(3));
         }
 
         @SuppressWarnings("unchecked")
-        private List<Record> getRecords() {
-            return (List<Record>) map.get("records");
+        private List<Account> getRecords() {
+            return (List<Account>) map.get("records");
         }
     }
 
@@ -108,39 +113,39 @@ public class HomeControllerTest {
 
         @Test
         public void shouldSaveRecordWhenThereAreNoErrors() throws Exception {
-            Record record = new Record();
-            insertData(record);
+            Account account = new Account();
+            insertData(account);
 
-            verify(repository, times(1)).save(record);
+            verify(repository, times(1)).save(account);
         }
 
         @Test
         public void shouldNotSaveRecordWhenThereAreErrors() throws Exception {
             bindingResult.addError(new ObjectError("", ""));
 
-            insertData(new Record());
+            insertData(new Account());
 
-            verify(repository, never()).save(any(Record.class));
+            verify(repository, never()).save(any(Account.class));
         }
 
         @Test
         public void shouldAddNewInsertRecordToModelMap() throws Exception {
-            Record record = new Record();
-            insertData(record);
+            Account account = new Account();
+            insertData(account);
 
             assertThat(map, hasKey("insertRecord"));
-            assertThat(map.get("insertRecord"), is(not(record)));
+            assertThat(map.get("insertRecord"), is(not(account)));
         }
 
         @Test
         public void shouldAddRecordsToModelMap() throws Exception {
-            insertData(new Record());
+            insertData(new Account());
 
             assertThat(map, hasKey("records"));
         }
 
-        private void insertData(Record record) {
-            ctrl.insertData(map, record, bindingResult);
+        private void insertData(Account account) {
+            ctrl.insertData(map, account, bindingResult);
         }
     }
 }
