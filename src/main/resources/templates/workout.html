@@ -43,7 +43,7 @@
     <div class="small-12 medium-8 small-centered columns">
         <h2>Workouts:</h2>
         <div id="userWorkouts" th:each="workout : ${workouts}">
-            <a href="/exercises?id=1">
+            <a th:href="@{'/exercises?id=' + ${workout.id}}">
                 <button type="button" class="expanded button" th:text="${workout.name}"></button>
             </a>
         </div>
