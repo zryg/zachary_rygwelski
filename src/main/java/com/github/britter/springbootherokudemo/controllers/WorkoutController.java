@@ -48,6 +48,7 @@ public class WorkoutController {
                              BindingResult result) {
         Account account = accountRepository.findOne(new Long(id));
         workout.setAccount(account);
+        workout.setId(null);
         if (!result.hasErrors()) {
             repository.save(workout);
         }
