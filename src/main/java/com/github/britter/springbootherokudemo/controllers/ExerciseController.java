@@ -1,9 +1,9 @@
 package com.github.britter.springbootherokudemo.controllers;
 
+import com.github.britter.springbootherokudemo.model.Day;
 import com.github.britter.springbootherokudemo.model.Exercise;
-import com.github.britter.springbootherokudemo.model.Workout;
-import com.github.britter.springbootherokudemo.repository.ExercisesRepository;
-import com.github.britter.springbootherokudemo.repository.WorkoutRepository;
+import com.github.britter.springbootherokudemo.repository.DayRepository;
+import com.github.britter.springbootherokudemo.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,42 +17,45 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by rygwelski on 9/22/16.
+ * Created by rygwelski on 9/26/16.
  */
 @Controller
 @RequestMapping("/exercises")
+
 public class ExerciseController {
 
-    private WorkoutRepository workoutRepository;
-    private ExercisesRepository exercisesRepository;
+    private ExerciseRepository exerciseRepository;
+    private DayRepository dayRepository;
 
     @Autowired
-    public ExerciseController(WorkoutRepository workoutRepository, ExercisesRepository exercisesRepository) {
-        this.workoutRepository = workoutRepository;
-        this.exercisesRepository = exercisesRepository;
+    public ExerciseController(ExerciseRepository exerciseRepository, DayRepository dayRepository) {
+        this.exerciseRepository = exerciseRepository;
+        this.dayRepository = dayRepository;
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String exercise(ModelMap model, @RequestParam Integer id) {
-        List<Exercise> exercises = exercisesRepository.findByWorkoutId(new Long(id));
-        Workout workout = workoutRepository.findOne(new Long(id));
+        List<Exercise> exercises = exerciseRepository.findByDayId(new Long(id));
+//        List<Exercise> exercises = exerciseRepository.findAll();
+        Day day = dayRepository.findOne(new Long(id));
         model.addAttribute("exercises", exercises);
-        model.addAttribute("workout", workout);
+        model.addAttribute("day", day);
         model.addAttribute("insertExercise", new Exercise());
         return "exercise";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String insertData(ModelMap model,
-                             @ModelAttribute("insertWorkout") @Valid Exercise exercise,
+                             @ModelAttribute("insertExercise") @Valid Exercise exercise,
                              @RequestParam Integer id,
                              BindingResult result) {
-        Workout workout = workoutRepository.findOne(new Long(id));
-        exercise.setWorkout(workout);
+        exercise.setId(null);
+        Day day = dayRepository.findOne(new Long(id));
+        exercise.setDay(day);
         if (!result.hasErrors()) {
-            exercisesRepository.save(exercise);
+            exerciseRepository.save(exercise);
         }
-        return exercise(model, new Long(exercise.getWorkout().getId()).intValue());
+        return exercise(model, new Long(exercise.getDay().getId()).intValue());
     }
 }

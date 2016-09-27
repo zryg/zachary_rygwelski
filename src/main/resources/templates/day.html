@@ -32,44 +32,42 @@
     </div>
 </div>
 
-<div class="row createUserContainer" style="margin-top:30px;">
+<div class="row">
     <div class="small-12 medium-8 small-centered columns">
-        <button type="button" class="expanded button" data-open="createNewUserButton">+ Create New Workout</button>
+        <h1 th:text="${workout.name}"></h1>
     </div>
 </div>
 
 <hr />
-<div class="row">
+
+<div class="row createDayContainer" style="margin-top:30px;">
     <div class="small-12 medium-8 small-centered columns">
-        <h2>Workouts:</h2>
-        <div id="userWorkouts" th:each="workout : ${workouts}">
-            <a th:href="@{'/days?id=' + ${workout.id}}">
-                <button type="button" class="expanded button" th:text="${workout.name}"></button>
-            </a>
-        </div>
-        <!--<table class="table table-striped">-->
-        <!--<tbody>-->
-        <!--<tr th:each="account : ${accounts}">-->
-        <!--<td th:text="${account.data}">Some text</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-        <!--</table>-->
+        <button type="button" class="expanded button" data-open="createNewDayButton">+ Add New Day</button>
     </div>
 </div>
 
-<div class="reveal" id="createNewUserButton" data-reveal="">
+<hr />
+
+<div class="row">
+    <div class="small-12 medium-8 small-centered columns">
+        <h2>Days</h2>
+        <div id="userDays" th:each="day : ${days}">
+            <a th:href="@{'/exercises?id=' + ${day.id}}">
+                <button type="button" class="expanded button" th:text="${day.name}"></button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="reveal" id="createNewDayButton" data-reveal="">
     <div class="row">
         <div class="small-12 medium-8 small-centered columns">
-            <form th:object="${insertWorkout}" method="POST">
+            <form th:object="${insertDay}" method="POST">
                 <div class="form-group">
                     <label for="name">Workout Name:</label>
                     <input id="name" type="text" placeholder="" th:field="*{name}" />
                 </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <input id="description" type="text" placeholder="" th:field="*{description}" />
-                </div>
-                <input id="account"  type="hidden" th:field="*{account}"/>
+                <input id="account"  type="hidden" th:field="*{workout}"/>
                 <button type="submit" class="button">Submit</button>
                 <button class="close-button" data-close="" aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
@@ -80,11 +78,10 @@
 </div>
 
 
-
 <script src="../js/vendor/jquery.js"></script>
 <script src="../js/vendor/what-input.js"></script>
 <script src="../js/vendor/foundation.js"></script>
-<script src="../js/workout/workout.js"></script>
+<script src="../js/day/day.js"></script>
 
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
 

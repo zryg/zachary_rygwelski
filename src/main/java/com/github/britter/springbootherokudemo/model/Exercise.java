@@ -3,6 +3,7 @@ package com.github.britter.springbootherokudemo.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by rygwelski on 9/22/16.
@@ -12,17 +13,20 @@ public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotEmpty
     private String name;
     @ManyToOne
-    private Workout workout;
+    private Day day;
+    @OneToMany
+    private Collection<Set> sets;
 
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +38,19 @@ public class Exercise {
         this.name = name;
     }
 
-    public Workout getWorkout() {
-        return workout;
+    public Day getDay() {
+        return day;
     }
 
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public Collection<Set> getSets() {
+        return sets;
+    }
+
+    public void setSets(Collection<Set> sets) {
+        this.sets = sets;
     }
 }

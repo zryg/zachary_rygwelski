@@ -7,11 +7,6 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="../css/app.css"/>
     <link rel="stylesheet" href="../css/foundation.css"/>
-    <!-- Latest compiled and minified CSS -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />-->
-
-    <!-- Optional theme -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />-->
 </head>
 <body>
 <div class="headerContainer">
@@ -34,11 +29,52 @@
 
 <div class="row">
     <div class="small-12 medium-8 small-centered columns">
-        <h1 th:text="${workout.name}"></h1>
+        <h1 th:text="${day.name}"></h1>
     </div>
 </div>
 
 <hr />
+
+<div class="row createDayContainer" style="margin-top:30px;">
+    <div class="small-12 medium-8 small-centered columns">
+        <button type="button" class="expanded button" data-open="createNewExerciseButton">+ Add New Exercise</button>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="small-12 medium-8 small-centered columns">
+        <h2>Days</h2>
+        <ul class="accordion" data-accordion="" data-multi-expand="true">
+            <li class="accordion-item" data-accordion-item="" th:each="exercise : ${exercises}">
+                <a href="#" class="accordion-title" th:text="${exercise.name}"></a>
+                <div class="accordion-content" data-tab-content="">
+                    Sets would go here with set, weight, reps, notes
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="reveal" id="createNewExerciseButton" data-reveal="">
+    <div class="row">
+        <div class="small-12 medium-8 small-centered columns">
+            <form th:object="${insertExercise}" method="POST">
+                <div class="form-group">
+                    <label for="name">Exercise Name:</label>
+                    <input id="name" type="text" placeholder="" th:field="*{name}" />
+                </div>
+                <input id="day"  type="hidden" th:field="*{day}"/>
+                <button type="submit" class="button">Submit</button>
+                <button class="close-button" data-close="" aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script src="../js/vendor/jquery.js"></script>
 <script src="../js/vendor/what-input.js"></script>

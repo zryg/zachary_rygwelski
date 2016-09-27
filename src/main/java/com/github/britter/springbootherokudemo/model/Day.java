@@ -6,22 +6,20 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by rygwelski on 9/19/16.
+ * Created by rygwelski on 9/22/16.
  */
 @Entity
-public class Workout {
+public class Day {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String description;
     @ManyToOne
-    private Account account;
+    private Workout workout;
     @OneToMany
-    private Collection<Day> days;
+    private Collection<Exercise> exercises;
 
     public Long getId() {
         return id;
@@ -39,27 +37,19 @@ public class Workout {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Workout getWorkout() {
+        return workout;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 
-    public Account getAccount() {
-        return account;
+    public Collection<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Collection<Day> getDays() {
-        return days;
-    }
-
-    public void setDays(Collection<Day> days) {
-        this.days = days;
+    public void setExercises(Collection<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }
