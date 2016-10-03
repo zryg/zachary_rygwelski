@@ -2,6 +2,7 @@ package com.github.britter.springbootherokudemo.controllers;
 
 import com.github.britter.springbootherokudemo.model.Day;
 import com.github.britter.springbootherokudemo.model.Exercise;
+import com.github.britter.springbootherokudemo.model.Set;
 import com.github.britter.springbootherokudemo.repository.DayRepository;
 import com.github.britter.springbootherokudemo.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,14 @@ public class ExerciseController {
             exerciseRepository.save(exercise);
         }
         return exercise(model, new Long(exercise.getDay().getId()).intValue());
+    }
+
+    @RequestMapping(value = "/set", method = RequestMethod.POST)
+    public String insertSet(ModelMap model,
+                             @ModelAttribute("insertSet") @Valid Set set,
+                             @RequestParam Integer id,
+                             BindingResult result) {
+        System.out.println("saving set");
+        return "x";
     }
 }

@@ -45,12 +45,31 @@
 
 <div class="row">
     <div class="small-12 medium-8 small-centered columns">
-        <h2>Days</h2>
         <ul class="accordion" data-accordion="" data-multi-expand="true">
             <li class="accordion-item" data-accordion-item="" th:each="exercise : ${exercises}">
                 <a href="#" class="accordion-title" th:text="${exercise.name}"></a>
                 <div class="accordion-content" data-tab-content="">
-                    Sets would go here with set, weight, reps, notes
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Set</th>
+                            <th>Weight</th>
+                            <th>Reps</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="set : ${exercise.sets}">
+                            <td th:text="${set.id}"></td>
+                            <td th:text="${set.reps}"></td>
+                            <td th:text="${set.weight}"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="js-addSet" value="${exercise.id}}">+</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </li>
         </ul>
