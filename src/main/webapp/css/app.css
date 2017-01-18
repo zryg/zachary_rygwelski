@@ -13,3 +13,7 @@ div#createNewUserButton {
 div#createUserContainer {
     margin-top: 20px;
 }
+
+body {
+    background: coral;
+}

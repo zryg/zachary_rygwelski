@@ -35,6 +35,7 @@
 <div class="row">
     <div class="small-12 medium-8 small-centered columns">
         <h1 th:text="${workout.name}"></h1>
+        <p th:text="${workout.description}"></p>
     </div>
 </div>
 
@@ -64,7 +65,7 @@
         <div class="small-12 medium-8 small-centered columns">
             <form th:object="${insertDay}" method="POST">
                 <div class="form-group">
-                    <label for="name">Workout Name:</label>
+                    <label for="name">Day Name: (e.g. Day 1 - Upper Body)</label>
                     <input id="name" type="text" placeholder="" th:field="*{name}" />
                 </div>
                 <input id="account"  type="hidden" th:field="*{workout}"/>
